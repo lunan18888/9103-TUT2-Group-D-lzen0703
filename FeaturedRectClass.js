@@ -47,4 +47,25 @@ class circlesInRectangles {
       this.drawY = this.y * insideCanvasHeight + insideCanvas.y;
       this.drawR = this.r * min(insideCanvasWidth, insideCanvasHeight);
     }
-}
+    
+    drawFace() {
+        let Radius = this.drawR;
+        let eyeOffset = Radius / 3;
+        let eyeSize = Radius / 5;
+    
+        fill(0); // Black color for eyes and mouth
+        noStroke();
+    
+        // Draw eyes
+        ellipse(this.drawX - eyeOffset, this.drawY - eyeOffset, eyeSize, eyeSize);
+        ellipse(this.drawX + eyeOffset, this.drawY - eyeOffset, eyeSize, eyeSize);
+      }
+    
+      display() {
+        fill(this.color);
+        noStroke();
+        ellipse(this.drawX, this.drawY, this.drawR * 2);
+    
+        this.drawFace();
+      }
+ }
