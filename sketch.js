@@ -17,6 +17,9 @@ let featuredRectArray = [];
 // Array to generate centred circles in rectangles
 let centredCircleArray = [];
 
+//create element for perlin change
+let perlinOffset = 0;
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -308,9 +311,16 @@ function generateCentredCircle() {
 }
 
 function drawCentredCircle() {
+  let noiseOffsetX = perlinOffset;
+  let noiseOffsetY = perlinOffset + 10000;
   for (let i = 0; i < centredCircleArray.length; i++) {
     let circle = centredCircleArray[i];
-    circle.updateSize(insideCanvas.width, insideCanvas.height);
+    let noiseX = noise(noiseOffsetX + i );
+    let noiseY = noise(noiseOffsetY + i);
+    
+    circle.drawX += map(noiseX, 0, 1, -10, 10);
+    circle.drawY += map(noiseY, 0, 1, -10, 10);
     circle.display();
   }
+  perlinOffset += 0.01; 
 }
