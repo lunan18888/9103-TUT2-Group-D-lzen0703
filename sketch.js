@@ -311,12 +311,15 @@ function generateCentredCircle() {
 }
 
 function drawCentredCircle() {
+  // smooth the move
+  let noiseScale = 0.1;
+  //set teo different number for changes
   let noiseOffsetX = perlinOffset;
   let noiseOffsetY = perlinOffset + 10000;
   for (let i = 0; i < centredCircleArray.length; i++) {
     let circle = centredCircleArray[i];
-    let noiseX = noise(noiseOffsetX + i );
-    let noiseY = noise(noiseOffsetY + i);
+    let noiseX = noise(noiseOffsetX + i * noiseScale);
+    let noiseY = noise(noiseOffsetY + i * noiseScale);
     
     circle.drawX += map(noiseX, 0, 1, -10, 10);
     circle.drawY += map(noiseY, 0, 1, -10, 10);
