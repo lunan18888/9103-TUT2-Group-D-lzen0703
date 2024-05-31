@@ -365,6 +365,7 @@ function drawCentredCircle() {
   //set teo different number for changes
   let noiseOffsetX = perlinOffset;
   let noiseOffsetY = perlinOffset + 10000;
+
   for (let i = 0; i < centredCircleArray.length; i++) {
     let circle = centredCircleArray[i];
     let noiseX = noise(noiseOffsetX + i * noiseScale);
@@ -372,6 +373,11 @@ function drawCentredCircle() {
     
     circle.drawX += map(noiseX, 0, 1, -10, 10);
     circle.drawY += map(noiseY, 0, 1, -10, 10);
+
+    // let caterpillars inside the canvas
+    circle.drawX = constrain(circle.drawX, circle.drawR, width - circle.drawR);
+    circle.drawY = constrain(circle.drawY, circle.drawR, height - circle.drawR);
+
     circle.display();
   }
   perlinOffset += 0.01; 
