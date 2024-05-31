@@ -19,6 +19,7 @@ let centredCircleArray = [];
 
 //create element for perlin change
 let perlinOffset = 0;
+let perlinOffsetColor = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -53,6 +54,9 @@ function setup() {
 function draw() {
   // This is background color
   background(255);
+
+  updateColors();
+
   // Draw canvas for the drawing elements
   drawInsideCanvas();
   drawFrame();
@@ -107,6 +111,23 @@ for (let i = 0; i < 30; i++) {
     let frameHeight = insideCanvas.height + i;
     rect(frameX, frameY, frameWidth, frameHeight);
   }
+}
+
+//  Make update colors to change insideCanvas's color
+function updateInsideCanvasColors() {
+
+  let noiseVal = noise(perlinOffsetColor);
+
+  //Use lerp to fix the color change interval
+  let InsideCanvasR = lerp(255, 150, noiseVal);
+  let InsideCanvaG = lerp(255, 150, noiseVal);
+  let InsideCanvasB = 255;
+  let dynamicInsideCanvasColor = color(InsideCanvasR, InsideCanvaG, InsideCanvasB);
+
+  shallowPurple = dynamicInsideCanvasColor;
+
+  // Update Perlin noise offset
+  perlinOffsetColor += 0.01;
 }
 
 let purpleLinesDataArray = [
