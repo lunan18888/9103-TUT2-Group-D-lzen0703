@@ -21,6 +21,10 @@ let centredCircleArray = [];
 let perlinOffset = 0;
 let perlinOffsetColor = 0;
 
+// Set update time 
+const updateInterval = 5;
+let frameCounter = 0;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -70,8 +74,10 @@ function draw() {
   // Draw small rectangles
   drawSmallRectangles();
 
-  // Update small rectangles
-  updateSmallRectangles();
+  // Update the positions of small rectangles
+  if (frameCounter % updateInterval === 0) {
+    updateSmallRectangles(); 
+  }
 
   // Display and update each featured rectangle
   drawFeaturedRectangles();
@@ -83,6 +89,8 @@ function draw() {
   // This must be on the top of the canvas
   drawShadow();
   drawLightShadow();
+
+  frameCounter++;
 
 }
 
