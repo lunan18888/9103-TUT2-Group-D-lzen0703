@@ -17,9 +17,16 @@ let featuredRectArray = [];
 // Array to generate centred circles in rectangles
 let centredCircleArray = [];
 
-//create element for perlin change
+//create elements for small circles perlin change
 let perlinOffset = 0;
+
+//create element for insideCanvas color
 let perlinOffsetColor = 0;
+
+//create elements for shadow
+let perlinOffsetX = 0;
+let perlinOffsetY = 0;
+let downwardTrend = 0;
 
 // Set update time 
 const updateInterval = 5;
@@ -211,21 +218,31 @@ function drawLightShadow(){
         for (let i = 0; i < 20; i++) {
           let dx = col * shadowDistanceX;
           let dy = 1 * row * shadowDistanceY + col * shadowVerticalDistance;
-          //calculate shallow shape value
-          let x1 = baseUpX1 + i + dx;
-          let y1 = baseUpY1 + 2 * i + dy;
-          let x2 = baseUpX2 + i + dx;
-          let y2 = baseUpY2 - i + dy;
-          let x3 = baseUpX3 - i + dx;
-          let y3 = baseUpY3 + i + dy;
-          let x4 = baseUpX4 - i + dx;
-          let y4 = baseUpY4 - 2 * i + dy;
+
+          //calculate Perlin noise offsets
+          let noiseX = noise(perlinOffsetX + i * 0.1);
+          let noiseY = noise(perlinOffsetY + i * 0.1);
+          
+          //Calculate shadow shape value
+          let x1 = baseUpX1 + i + dx + map(noiseX, 0, 1, -5, 5);
+          let y1 = baseUpY1 + 2 * i + dy + map(noiseY, 0, 1, -5, 5) + downwardTrend;
+          let x2 = baseUpX2 + i + dx + map(noiseX, 0, 1, -5, 5);
+          let y2 = baseUpY2 - i + dy + map(noiseY, 0, 1, -5, 5) + downwardTrend;
+          let x3 = baseUpX3 - i + dx + map(noiseX, 0, 1, -5, 5);
+          let y3 = baseUpY3 + i + dy + map(noiseY, 0, 1, -5, 5) + downwardTrend;
+          let x4 = baseUpX4 - i + dx + map(noiseX, 0, 1, -5, 5);
+          let y4 = baseUpY4 - 2 * i + dy + map(noiseY, 0, 1, -5, 5) + downwardTrend;
+          
           //draw shape( two triangles)
           triangle(x1, y1, x2, y2, x3, y3);
           triangle(x4, y4, x2, y2, x3, y3);
         }
       }
   }
+    // Increase the variables
+    perlinOffsetX += 0.01; 
+    perlinOffsetY += 0.01; 
+    downwardTrend += 0.1; 
 }
 
 //This is shadow base
@@ -270,6 +287,7 @@ function drawSmallRectangles() {
       rect(smallRect.x, smallRect.y, smallRect.w, smallRect.h);
   }
 }
+
 
 // Draw featured rectangles
 // Record the position of each rectangles
