@@ -21,6 +21,7 @@ let centredCircleArray = [];
 let perlinOffset = 0;
 let perlinOffsetColor = 0;
 
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
@@ -55,6 +56,7 @@ function draw() {
   // This is background color
   background(255);
 
+  //update color
   updateInsideCanvasColors();
 
   // Draw canvas for the drawing elements
@@ -64,9 +66,12 @@ function draw() {
   // Draw purple lines in the canvas
   // This must be at the bottom of the canvas
   drawPurpleLines();
-
+  
   // Draw small rectangles
   drawSmallRectangles();
+
+  // Update small rectangles
+  updateSmallRectangles();
 
   // Display and update each featured rectangle
   drawFeaturedRectangles();
@@ -78,6 +83,7 @@ function draw() {
   // This must be on the top of the canvas
   drawShadow();
   drawLightShadow();
+
 }
 
 function windowResized() {
@@ -233,6 +239,20 @@ function generateSmallRectangles() {
       let x = insideCanvas.x + random(insideCanvas.width - w);  // This ensures small rects are inside the frame
       let y = insideCanvas.y + random(insideCanvas.height - h); // This ensures small rects are inside the frame
       smallRectangles.push({ color, x, y, w, h });  // Push rect data into an object
+  }
+}
+
+function updateSmallRectangles() {
+  // Adjust the range for random movement
+  let moveRange = 100; 
+  for (let i = 0; i < smallRectangles.length; i++) {
+    let rect = smallRectangles[i];
+    rect.x += random(-moveRange, moveRange);
+    rect.y += random(-moveRange, moveRange);
+
+    // Keep rectangles within the insideCanvas boundaries
+    rect.x = constrain(rect.x, insideCanvas.x, insideCanvas.x + insideCanvas.width - rect.w);
+    rect.y = constrain(rect.y, insideCanvas.y, insideCanvas.y + insideCanvas.height - rect.h);
   }
 }
 
