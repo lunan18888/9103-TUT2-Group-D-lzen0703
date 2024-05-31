@@ -28,4 +28,5 @@
 2. Calculated noiseX and noiseY to update the shadows' positions.
 3. Used map() to transform the range of noiseX into a different range.
 4. Set downwardTrend to increment over time and calculated the new positions of the light shadows to make them descend slowly.
+   
 _(All the code used above was taught in class.)_
