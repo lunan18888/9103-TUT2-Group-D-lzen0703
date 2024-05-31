@@ -55,7 +55,7 @@ function draw() {
   // This is background color
   background(255);
 
-  updateColors();
+  updateInsideCanvasColors();
 
   // Draw canvas for the drawing elements
   drawInsideCanvas();
