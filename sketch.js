@@ -119,8 +119,8 @@ function updateInsideCanvasColors() {
   let noiseVal = noise(perlinOffsetColor);
 
   //Use lerp to fix the color change interval
-  let InsideCanvasR = lerp(255, 150, noiseVal);
-  let InsideCanvaG = lerp(255, 150, noiseVal);
+  let InsideCanvasR = lerp(255, 180, noiseVal);
+  let InsideCanvaG = lerp(255, 180, noiseVal);
   let InsideCanvasB = 255;
   let dynamicInsideCanvasColor = color(InsideCanvasR, InsideCanvaG, InsideCanvasB);
 
